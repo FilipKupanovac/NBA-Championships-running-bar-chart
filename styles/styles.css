@@ -20,3 +20,7 @@ body{
     fill: normal;
     color: white;
 }
+
+#y-axis .tick{
+    font-size: 1.5em;
+}

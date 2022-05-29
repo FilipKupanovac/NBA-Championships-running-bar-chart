@@ -5,7 +5,7 @@ import { ChartRender } from "./src/ChartRender.js";
 const ChartSettings = {
     width: window.innerWidth * 0.95,
     height: window.innerHeight * 0.95,
-    padding: 50
+    padding: 60
 }
 
 ChartSettings.innerWidth = ChartSettings.width - ChartSettings.padding *4;
