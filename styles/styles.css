@@ -1,0 +1,22 @@
+body{
+    margin: 10 auto;
+    display: flex;
+    justify-content: center;
+}
+.domain{
+    display: none;
+}
+
+#chart-title, #current-date{
+    font-size: 3em;
+    fill: #636363;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#current-date{
+    text-anchor: end;
+}
+
+.title-year{
+    fill: normal;
+    color: white;
+}
