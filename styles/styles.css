@@ -24,3 +24,7 @@ body{
 #y-axis .tick{
     font-size: 1.5em;
 }
+
+.title-year-text, .total-championships {
+    font-size: 1em;
+}

@@ -6,7 +6,7 @@ export function ChartRender(chartParts, dataset) { //dataset represents total ch
 
     var { chartContainer, xScale, yScale, xAxis, yAxis, innerHeight} = chartParts;
     var chartTransition;
-    var transitionDuration = 400;
+    var transitionDuration = 40;
     var barHeight = 0
     
 
@@ -53,38 +53,62 @@ export function ChartRender(chartParts, dataset) { //dataset represents total ch
             .attr('height', barHeight )
             .attr('fill', function(d) { return d.color})
 
-        //#region ŽELJE I POZDRAVI
-            /* .on('mouseover', function(event, d) {
+        barGroupsEnter
+            .on('mouseover', function(event, d) {
+                let {color, titles} = d
+                let barWidth = this.getBoundingClientRect().width
                 select(this)
                     .attr('fill','black')
-                console.log(this.getBoundingClientRect().width)
                 let ixer = scaleBand().domain(range(d.titles)).range([0,this.getBoundingClientRect().width])
-                console.log(yScale(d.titles-1))
                 select(this).selectAll('g')
                     .data(range(d.titles))
                     .enter()
 
-                    .append('rect') //OVAJ MORA BITI ISTI KAO  OVAJ (1)
+                    .append('rect')
                     .attr('class','title-year')
                     .attr('x',0)
                     .attr('y',0)
                     .attr('width', Math.ceil(ixer.step()))
                     .attr('height', Math.ceil(barHeight));
 
+            let offset = innerHeight/(2 * yScale.domain().length) - barHeight/2
                 select(this).selectAll('.title-year')
                     .attr('width', ixer.step())
                     .attr('height', barHeight)
                     .attr('fill', 'white')
-                    .attr('transform', function(d,i) {console.log("iiiiiii"); return `translate(0,${ixer(i)})`})
-                    .text(function(d,i){console.log(i); return i})
+                    .attr('transform', function(d,i) {return `translate(${ixer(i)}, ${offset})`})
+
+                select(this).selectAll('.row-container')
+                    .data(d.titleYears)
+                    .enter()
+                    .append('text')
+                    .attr('class','title-year-text')
+                    .attr('width', ixer.step()).attr('height', barHeight)
+                    .attr('x',0).attr('y', 0)
+                    .attr('font-weight', 'bold')
+                    .style('fill', color)
+                    .attr('transform', function(d,i) {return `translate(${ixer(i) + ixer.step()*0.2}, ${offset + barHeight/1.5})`})
+                    .text(function(d){ return d })
                 
+                //not working yet
+                select(this).selectAll('.row-container')
+                    .data(range(1))
+                    .enter()
+                    .append('text').attr('class','total-championships')
+                    .attr('width', ixer.step()).attr('height', barHeight)
+                    .attr('x',0).attr('y', 0)
+                    .attr('font-weight', 'bold')
+                    .style('fill', color)
+                    .attr('transform', function(d,i) {return `translate(${ barWidth + ixer.step()*0.2}, ${offset + barHeight/1.5})`})
+                    .text(titles.length)
+
             })
             .on('mouseout', function(event, d){
-                select(this)
-                .attr('fill', d.color)
-                .selectAll('rect').remove() //OVAJ MORA BITI ISTI KAO  OVAJ (2)
-            }) */
-            //#endregion
+                select(this).attr('fill', d.color)
+                    .selectAll('rect.title-year').remove()
+                select(this).selectAll('text.title-year-text').remove()
+                select(this).selectAll('text.total-championships').remove()
+            })
             
 
         let barUpdate = barGroupsEnter.merge(barGroups);
@@ -122,7 +146,9 @@ export function ChartRender(chartParts, dataset) { //dataset represents total ch
                 if (team.name === latestChampionship.name)
                     color = team.color;
             })
-            dataset.push({name: latestChampionship.name, titles: 0, lastTitleYear: 0, color: color})
+            dataset.push({name: latestChampionship.name, titles: 0, lastTitleYear: 0,
+                titleYears: [],
+                color: color})
 
             updateBarSettings();
         }
@@ -131,6 +157,8 @@ export function ChartRender(chartParts, dataset) { //dataset represents total ch
             if(team.name === latestChampionship.name){
                 team.titles++;
                 team.lastTitleYear = latestChampionship.year;
+
+                team.titleYears.push(latestChampionship.year)
             }
         });
 

@@ -9,7 +9,7 @@ const ChartSettings = {
 }
 
 ChartSettings.innerWidth = ChartSettings.width - ChartSettings.padding *4;
-ChartSettings.innerHeight = ChartSettings.height - ChartSettings.padding *3;
+ChartSettings.innerHeight = ChartSettings.height - ChartSettings.padding *4;
 
 const Champions = [];
 
