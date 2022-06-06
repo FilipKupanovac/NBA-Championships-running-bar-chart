@@ -6,7 +6,7 @@ export function ChartRender(chartParts, dataset) { //dataset represents total ch
 
     var { chartContainer, xScale, yScale, xAxis, yAxis, innerHeight} = chartParts;
     var chartTransition;
-    var transitionDuration = 40;
+    var transitionDuration = 400;
     var barHeight = 0
     
 
