@@ -112,4 +112,5 @@ export const NBAChampions = [
   { name: "Toronto Raptors", year: 2019 },
   { name: "Los Angeles Lakers", year: 2020 },
   { name: "Milwaukee Bucks", year: 2021 },
+  { name: "Golden State Warriors", year: 2022},
 ];
